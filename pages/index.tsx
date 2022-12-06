@@ -6,6 +6,8 @@ import { txt } from "../interfaces/dataInterface";
 import { BiLockOpenAlt } from "react-icons/bi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import PopUpCard from "../components/PopUpCard";
+import Navigations from "../components/Navigations";
+import AccessBar from "../components/AccessBar";
 
 const Home = () => {
   const [currentInput, setCurrentInput] = useState("");
@@ -19,14 +21,16 @@ const Home = () => {
     if (currentInput === "/1") {
       setUseBigInp(true);
       setCurrentInput("");
+      return;
+    } else {
+      if (currentInput)
+        settextData([
+          ...textData,
+          { id: uuidv4(), value: currentInput, isHeader: useBigInp },
+        ]);
+      setCurrentInput("");
+      useBigInp && setUseBigInp(false);
     }
-    if (currentInput)
-      settextData([
-        ...textData,
-        { id: uuidv4(), value: currentInput, isHeader: useBigInp },
-      ]);
-    setCurrentInput("");
-    useBigInp && setUseBigInp(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +58,10 @@ const Home = () => {
   };
 
   const isH1 = (txt: string) => {
-    return txt[txt.length - 1] === "/";
+    return (
+      txt[txt.length - 1] === "/" ||
+      txt.substring(txt.length - 2, txt.length) === "/1"
+    );
   };
 
   return (
@@ -67,30 +74,10 @@ const Home = () => {
 
       <main>
         <>
-          <nav className="flex flex-wrap items-center text-gray-400 justify-between p-4">
-            <div className="nav-links flex gap-2">
-              <div>Main /</div>
-              <div>Getting started /</div>
-              <div> Front-end developer test project</div>
-            </div>
-            <div className="flex gap-2 divide-x-2 topbar-action-buttons m-4">
-              <div className="flex items-center">
-                <BiLockOpenAlt /> <button> Editing</button>
-              </div>
-
-              <div className="flex align-middle items-center">
-                <button> Publish Space </button>
-                <RiArrowDropDownLine />
-              </div>
-            </div>
-          </nav>
+          <Navigations />
           <div className="max-w-2xl m-auto">
-            <h1
-              className="
-    text-4xl border-b-2
-    p-2
-    "
-            >
+            <AccessBar />
+            <h1 className="text-4xl border-b-2 p-2 mt-8 mb-5 font-bold">
               Front-end developer test project
             </h1>
             <p className="text-gray-600">
