@@ -1,12 +1,5 @@
 import React from "react";
-import { txt } from "../interfaces/dataInterface";
-
-interface propsInterface {
-  value: txt;
-  textClasses: string;
-  setEditable: React.Dispatch<React.SetStateAction<string>>;
-  handleUpdae: (value: txt) => void;
-}
+import { propsInterface, txt } from "../interfaces/dataInterface";
 
 const InputText = (props: propsInterface) => {
   const { value, textClasses, setEditable, handleUpdae } = props;

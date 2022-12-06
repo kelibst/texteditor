@@ -3,4 +3,10 @@ interface txt {
   value: string;
 }
 
-export type { txt };
+interface propsInterface {
+  value: txt;
+  textClasses: string;
+  setEditable: React.Dispatch<React.SetStateAction<string>>;
+  handleUpdae: (value: txt) => void;
+}
+export type { txt, propsInterface };
