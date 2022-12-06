@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import InputText from "../components/InputText";
 import { txt } from "../interfaces/dataInterface";
@@ -7,7 +7,7 @@ import { BiLockOpenAlt } from "react-icons/bi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import PopUpCard from "../components/PopUpCard";
 
-export default function Home() {
+const Home = () => {
   const [currentInput, setCurrentInput] = useState("");
   let [textData, settextData] = useState<txt[]>([]);
   const [editable, seteditable] = useState("");
@@ -41,8 +41,6 @@ export default function Home() {
       setCurrentInput("");
     }
   };
-
-  console.log(textData);
 
   const isH1 = (txt: string) => {
     return txt[txt.length - 1] === "/";
@@ -99,6 +97,7 @@ export default function Home() {
                       textClasses={"h1 outline-none"}
                       handleUpdae={handleUpdateTxt}
                       setEditable={seteditable}
+                      isH1={isH1(editable) && data.value === editable}
                     />
                   ))
                 : ""}
@@ -119,4 +118,6 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default memo(Home);

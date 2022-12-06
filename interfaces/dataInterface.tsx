@@ -8,5 +8,6 @@ interface propsInterface {
   textClasses: string;
   setEditable: React.Dispatch<React.SetStateAction<string>>;
   handleUpdae: (value: txt) => void;
+  isH1: boolean;
 }
 export type { txt, propsInterface };

@@ -1,23 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { propsInterface, txt } from "../interfaces/dataInterface";
+import PopUpCard from "./PopUpCard";
 
 const InputText = (props: propsInterface) => {
-  const { value, textClasses, setEditable, handleUpdae } = props;
+  const { value, textClasses, setEditable, handleUpdae, isH1 } = props;
   return (
     <div
+      id={value.id}
+      onClick={(e) => {
+        setEditable(e.target.innerText);
+      }}
       onInput={(e) => {
-        if (
-          e.currentTarget.textContent !== value.value &&
-          e.currentTarget.textContent === ""
-        ) {
-          setEditable("");
-        } else if (
-          e.currentTarget.textContent !== value.value &&
-          e.currentTarget.textContent &&
-          e.currentTarget.textContent !== ""
-        ) {
-          setEditable(e.currentTarget.textContent);
-        }
+        setEditable(e.currentTarget.textContent);
       }}
       onBlur={() => {
         handleUpdae(value);
@@ -26,6 +20,7 @@ const InputText = (props: propsInterface) => {
       className={textClasses}
     >
       {value.value}
+      {isH1 && <PopUpCard />}
     </div>
   );
 };
