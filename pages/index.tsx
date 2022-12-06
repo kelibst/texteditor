@@ -10,12 +10,23 @@ import PopUpCard from "../components/PopUpCard";
 const Home = () => {
   const [currentInput, setCurrentInput] = useState("");
   let [textData, settextData] = useState<txt[]>([]);
+  const [useBigInp, setUseBigInp] = useState(false);
+
   const [editable, seteditable] = useState("");
 
   const handleInputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    settextData([...textData, { id: uuidv4(), value: currentInput }]);
+    if (currentInput === "/1") {
+      setUseBigInp(true);
+      setCurrentInput("");
+    }
+    if (currentInput)
+      settextData([
+        ...textData,
+        { id: uuidv4(), value: currentInput, isHeader: useBigInp },
+      ]);
     setCurrentInput("");
+    useBigInp && setUseBigInp(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +105,9 @@ const Home = () => {
                     <InputText
                       key={data.id}
                       value={data}
-                      textClasses={"h1 outline-none"}
+                      textClasses={
+                        data.isHeader ? "text-2xl font-bold" : "outline-none"
+                      }
                       handleUpdae={handleUpdateTxt}
                       setEditable={seteditable}
                       isH1={isH1(editable) && data.value === editable}
@@ -105,8 +118,16 @@ const Home = () => {
               <form onSubmit={handleInputSubmit}>
                 <input
                   type="text"
-                  className="outline-none"
-                  placeholder="type / for blocks, @ to link docs or people"
+                  className={
+                    useBigInp
+                      ? "outline-none py-2 mt-8 text-2xl font-bold"
+                      : "outline-none mt-8"
+                  }
+                  placeholder={
+                    useBigInp
+                      ? "Heading 1"
+                      : "type / for blocks, @ to link docs or people"
+                  }
                   value={currentInput}
                   onChange={handleInputChange}
                 />
