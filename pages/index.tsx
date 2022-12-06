@@ -4,27 +4,49 @@ import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { v4 as uuidv4 } from "uuid";
 import InputText from "../components/InputText";
-
-interface txt {
-  id: string;
-  value: string;
-}
+import { txt } from "../interfaces/dataInterface";
 
 export default function Home() {
   const [currentInput, setCurrentInput] = useState("");
-  const [textData, settextData] = useState<txt[]>([]);
+  let [textData, settextData] = useState<txt[]>([]);
+  const [editable, seteditable] = useState("");
 
   const handleInputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(currentInput);
     settextData([...textData, { id: uuidv4(), value: currentInput }]);
-    // setCurrentInput(event.target!.value);
+    setCurrentInput("");
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentInput(event.target.value);
   };
+
+  const handleUpdateTxt = (value: txt) => {
+    if (editable === "") {
+      textData = textData.filter((data) => data.id !== value.id);
+      settextData([...textData]);
+    } else {
+      textData.map((data) => {
+        if (
+          data.id === value.id &&
+          editable !== data.value &&
+          editable.length
+        ) {
+          return (data.value = editable);
+        }
+        return data;
+      });
+      settextData([...textData]);
+      setCurrentInput("");
+    }
+  };
+
   console.log(textData);
+
+  const isH1 = (txt: string) => {
+    return txt[txt.length - 1] === "/";
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -34,20 +56,25 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
         <div className="displayContainer">
-          {textData.length ? (
-            textData.map((data) => (
-              <InputText key={data.id} value={data.value} textClasses={"h1"} />
-            ))
-          ) : (
-            <>Nothing here</>
-          )}
+          {textData.length
+            ? textData.map((data) => (
+                <InputText
+                  key={data.id}
+                  value={data}
+                  textClasses={"h1 outline-none"}
+                  handleUpdae={handleUpdateTxt}
+                  setEditable={seteditable}
+                />
+              ))
+            : ""}
 
           <form onSubmit={handleInputSubmit}>
             <input
               type="text"
-              className="txtInput"
+              className="outline-none"
+              placeholder="type / for blocks, @ to link docs or people"
+              value={currentInput}
               onChange={handleInputChange}
             />
           </form>
