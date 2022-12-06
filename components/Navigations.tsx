@@ -11,18 +11,18 @@ const Navigations = () => {
     "
     >
       <div className="nav-links px-4 flex gap-2">
-        <div>Main /</div>
-        <div>Getting started /</div>
-        <div> Front-end developer test project</div>
+        <div className="cursor-pointer">Main /</div>
+        <div className="cursor-pointer">Getting started /</div>
+        <div className="cursor-pointer"> Front-end developer test project</div>
       </div>
       <div className="flex gap-2 divide-x-2 topbar-action-buttons m-4">
         <div className="flex items-center">
           <BiLockOpenAlt />{" "}
-          <p className="hover:cursor-pointer pl-2 pr-6 pt-1"> Editing</p>
+          <p className="hover:cursor-pointer pl-2 pr-3 pt-1"> Editing</p>
         </div>
 
-        <div className="flex align-middle items-center">
-          <p className="hover:cursor-pointer pt-1"> Publish Space </p>
+        <div className="flex align-middle pl-3 items-center">
+          <p className="cursor-pointer pt-1"> Publish Space </p>
           <RiArrowDropDownLine />
         </div>
       </div>

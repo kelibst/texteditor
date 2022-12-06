@@ -1,10 +1,8 @@
 import Head from "next/head";
-import React, { memo, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import InputText from "../components/InputText";
 import { txt } from "../interfaces/dataInterface";
-import { BiLockOpenAlt } from "react-icons/bi";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import PopUpCard from "../components/PopUpCard";
 import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
@@ -86,7 +84,7 @@ const Home = () => {
               then, typing text, and hitting enter.&apos;
             </p>
 
-            <div className="displayContainer">
+            <div className="displayContainer pt-8">
               {textData.length
                 ? textData.map((data) => (
                     <InputText
@@ -128,4 +126,4 @@ const Home = () => {
   );
 };
 
-export default memo(Home);
+export default Home;
