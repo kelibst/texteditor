@@ -8,10 +8,10 @@ const InputText = (props: propsInterface) => {
     <div
       id={value.id}
       onClick={(e) => {
-        setEditable(e.target.innerText);
+        setEditable((e.target as HTMLElement).innerText);
       }}
       onInput={(e) => {
-        setEditable(e.currentTarget.textContent);
+        e.currentTarget.textContent && setEditable(e.currentTarget.textContent);
       }}
       onBlur={() => {
         handleUpdae(value);
