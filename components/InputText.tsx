@@ -24,7 +24,7 @@ const InputText = (props: propsInterface) => {
       className={textClasses}
     >
       {value.value}
-      {isH1 && <PopUpCard />}
+      {isH1 && <PopUpCard dispatch={() => {}} />}
     </div>
   );
 };
