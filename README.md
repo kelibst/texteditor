@@ -2,7 +2,7 @@
 
 # TextEditor
 
-> Building a text editor similar to the Notion's text editor. Wish me luck.
+> This is a Notion-like app that lets you write anywhere and convert your content into H1.
 
 ![screenshot](./src/assets/app-shot.png)
 
@@ -37,6 +37,9 @@ To get a local copy up and running follow these simple example steps.
 `npm run dev`
 
 To start a local Server and see how the app is running. You will need node and NPM installed
+
+`npm run lint`
+To Check for linters error
 
 ## Author
 

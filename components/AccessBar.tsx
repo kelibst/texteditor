@@ -39,16 +39,4 @@ const AccessBar = () => {
     </div>
   );
 };
-//   <div className="flex divide-x-2 gap-4 ">
-//         <div className="bg-blue-400">P</div>
-//         <AiOutlineClockCircle />
-//         <GiRabbitHead />
-//         <FiArrowDownLeft />
-//       </div>
-
-//       <div className="flex">
-//         <BsCheck2Circle />
-//         <CiCloud />
-//         <AiOutlineMore />
-//       </div>
 export default AccessBar;

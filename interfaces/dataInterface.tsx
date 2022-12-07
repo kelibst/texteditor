@@ -1,7 +1,7 @@
 interface txt {
   id: string;
   value: string;
-  isHeader?: boolean;
+  isHeader: boolean;
 }
 
 interface propsInterface {

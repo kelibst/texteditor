@@ -11,7 +11,11 @@ const InputText = (props: propsInterface) => {
         setEditable((e.target as HTMLElement).innerText);
       }}
       onInput={(e) => {
-        e.currentTarget.textContent && setEditable(e.currentTarget.textContent);
+        if (e.currentTarget.textContent) {
+          setEditable(e.currentTarget.textContent);
+        } else {
+          setEditable("");
+        }
       }}
       onBlur={() => {
         handleUpdae(value);

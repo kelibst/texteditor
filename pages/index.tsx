@@ -1,31 +1,45 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import InputText from "../components/InputText";
-import { txt } from "../interfaces/dataInterface";
+// import { txt } from "../interfaces/dataInterface";
 import PopUpCard from "../components/PopUpCard";
 import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
+import textReducer from "../reducers/TextValues";
+
+interface txt {
+  id: string;
+  value: string;
+  isHeader: boolean;
+}
 
 const Home = () => {
+  // set needed states and reducer initialization
+  const initaltext: txt[] = [];
   const [currentInput, setCurrentInput] = useState("");
-  let [textData, settextData] = useState<txt[]>([]);
+  const [testingData, dispatchData] = useReducer(textReducer, initaltext);
   const [useBigInp, setUseBigInp] = useState(false);
-
   const [editable, seteditable] = useState("");
 
+  // handle what happens when the user submit the input form
   const handleInputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (currentInput === "/1") {
       setUseBigInp(true);
       setCurrentInput("");
       return;
     } else {
       if (currentInput)
-        settextData([
-          ...textData,
-          { id: uuidv4(), value: currentInput, isHeader: useBigInp },
-        ]);
+        dispatchData({
+          type: "ADD_TEXT",
+          payload: {
+            id: uuidv4(),
+            value: currentInput,
+            isHeader: useBigInp,
+          },
+        });
       setCurrentInput("");
       useBigInp && setUseBigInp(false);
     }
@@ -37,21 +51,21 @@ const Home = () => {
 
   const handleUpdateTxt = (value: txt) => {
     if (editable === "") {
-      textData = textData.filter((data) => data.id !== value.id);
-      settextData([...textData]);
-    } else {
-      textData.map((data) => {
-        if (
-          data.id === value.id &&
-          editable !== data.value &&
-          editable.length
-        ) {
-          return (data.value = editable);
-        }
-        return data;
+      dispatchData({
+        type: "DELETE_TEXT",
+        payload: {
+          ...value,
+          value: editable,
+        },
       });
-      settextData([...textData]);
-      setCurrentInput("");
+    } else {
+      dispatchData({
+        type: "UPDATE_TEXT",
+        payload: {
+          ...value,
+          value: editable,
+        },
+      });
     }
   };
 
@@ -75,18 +89,21 @@ const Home = () => {
           <Navigations />
           <div className="max-w-2xl m-auto">
             <AccessBar />
-            <h1 className="text-4xl border-b-2 p-2 mt-8 mb-5 font-bold">
+            <h1
+              id="header"
+              className="text-4xl border-b-2 p-2 mt-8 mb-5 font-bold"
+            >
               Front-end developer test project
             </h1>
             <p className="text-gray-600">
-              &apos; Your goal is to make a page that looks exactly like this
-              one, and has the ability to create H1 text simply by typing /
-              then, typing text, and hitting enter.&apos;
+              Your goal is to make a page that looks exactly like this one, and
+              has the ability to create H1 text simply by typing / then, typing
+              text, and hitting enter.
             </p>
 
             <div className="displayContainer pt-8">
-              {textData.length
-                ? textData.map((data) => (
+              {testingData.length
+                ? testingData.map((data: txt) => (
                     <InputText
                       key={data.id}
                       value={data}
