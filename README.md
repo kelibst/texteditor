@@ -4,7 +4,7 @@
 
 > This is a Notion-like app that lets you write anywhere and convert your content into H1.
 
-![screenshot](./src/assets/app-shot.png)
+![screenshot](/sample.gif)
 
 Users can simply type /1 and enter to allow their text become a header 1 text
 
@@ -40,6 +40,11 @@ To start a local Server and see how the app is running. You will need node and N
 
 `npm run lint`
 To Check for linters error
+
+`npm run cypress`
+to run the test
+You can learn how to run the test from your browser by watching this gif
+![testingshow](/testing.gif)
 
 ## Author
 

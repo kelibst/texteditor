@@ -26,8 +26,17 @@ const Home = () => {
   const handleInputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (currentInput === "/1") {
+    if (isH1(currentInput)) {
       setUseBigInp(true);
+      currentInput.length > 3 &&
+        dispatchData({
+          type: "ADD_TEXT",
+          payload: {
+            id: uuidv4(),
+            value: currentInput.substring(0, currentInput.length - 2),
+            isHeader: useBigInp,
+          },
+        });
       setCurrentInput("");
       return;
     } else {
@@ -133,7 +142,29 @@ const Home = () => {
                   value={currentInput}
                   onChange={handleInputChange}
                 />
-                {isH1(currentInput) && <PopUpCard />}
+                {isH1(currentInput) && (
+                  <PopUpCard
+                    dispatch={() => {
+                      if (isH1(currentInput)) {
+                        setUseBigInp(true);
+                        currentInput.length > 3 &&
+                          dispatchData({
+                            type: "ADD_TEXT",
+                            payload: {
+                              id: uuidv4(),
+                              value: currentInput.substring(
+                                0,
+                                currentInput.length - 2
+                              ),
+                              isHeader: useBigInp,
+                            },
+                          });
+                        setCurrentInput("");
+                        return;
+                      }
+                    }}
+                  />
+                )}
               </form>
             </div>
           </div>

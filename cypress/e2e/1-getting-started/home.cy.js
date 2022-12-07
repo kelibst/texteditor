@@ -30,3 +30,39 @@ describe("Test form and input elements", () => {
       ); // ensure the input has the correct placeholder text
   });
 });
+
+describe("Test form and input elements", () => {
+  it('displays the PopUpCard component when the input value is "/1" or "/"', () => {
+    cy.visit("http://localhost:3000"); // visit the page
+    cy.get("form") // get the form element
+      .find("input") // find the input element within the form
+      .type("/1"); // type the "/1" string into the input
+    cy.get(".PopUpCard") // get the PopUpCard component
+      .should("exist"); // ensure the PopUpCard component exists
+    cy.get("form") // get the form element
+      .find("input") // find the input element within the form
+      .clear() // clear the input
+      .type("/"); // type the "/" string into the input
+    cy.get(".PopUpCard") // get the PopUpCard component
+      .should("exist"); // ensure the PopUpCard component exists
+  });
+});
+
+describe("Test form and input elements", () => {
+  it('displays the PopUpCard component when the input value is "/1" or "/", and clears the input and adds the correct classes after the form is submitted', () => {
+    cy.visit("http://localhost:3000"); // visit the page
+    cy.get("form") // get the form element
+      .find("input") // find the input element within the form
+      .type("/1"); // type the "/1" string into the input
+    cy.get(".PopUpCard") // get the PopUpCard component
+      .should("exist"); // ensure the PopUpCard component exists
+    cy.get("form") // get the form element
+      .submit(); // submit the form
+    cy.get(".PopUpCard") // get the PopUpCard component
+      .should("not.exist"); // ensure the PopUpCard component does not exist
+    cy.get("form") // get the form element
+      .find("input")
+      .should("have.class", "outline-none")
+      .should("have.class", "text-2xl");
+  });
+});
