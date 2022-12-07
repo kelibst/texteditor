@@ -147,7 +147,8 @@ const Home = () => {
                     dispatch={() => {
                       if (isH1(currentInput)) {
                         setUseBigInp(true);
-                        currentInput.length > 3 &&
+
+                        if (currentInput.length > 3) {
                           dispatchData({
                             type: "ADD_TEXT",
                             payload: {
@@ -159,6 +160,8 @@ const Home = () => {
                               isHeader: useBigInp,
                             },
                           });
+                        }
+
                         setCurrentInput("");
                         return;
                       }
