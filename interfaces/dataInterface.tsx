@@ -1,14 +1,14 @@
-interface txt {
+interface txtInterface {
   id: string;
   value: string;
   isHeader: boolean;
 }
 
 interface propsInterface {
-  value: txt;
+  value: txtInterface;
   textClasses: string;
   setEditable: React.Dispatch<React.SetStateAction<string>>;
-  handleUpdae: (value: txt) => void;
+  handleUpdae: (value: txtInterface) => void;
   isH1: boolean;
 }
-export type { txt, propsInterface };
+export type { txtInterface, propsInterface };

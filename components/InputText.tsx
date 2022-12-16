@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
-import { propsInterface, txt } from "../interfaces/dataInterface";
+import React, { memo, useRef } from "react";
+import { propsInterface } from "../interfaces/dataInterface";
 import PopUpCard from "./PopUpCard";
 
 const InputText = (props: propsInterface) => {
   const { value, textClasses, setEditable, handleUpdae, isH1 } = props;
+  console.log("render: editable content");
+
   return (
     <div
       id={value.id}
@@ -22,6 +24,7 @@ const InputText = (props: propsInterface) => {
       }}
       contentEditable="true"
       className={textClasses}
+      suppressContentEditableWarning={true}
     >
       {value.value}
       {isH1 && <PopUpCard dispatch={() => {}} />}
@@ -29,4 +32,4 @@ const InputText = (props: propsInterface) => {
   );
 };
 
-export default InputText;
+export default memo(InputText);
