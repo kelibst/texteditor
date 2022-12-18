@@ -1,15 +1,15 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import Head from "next/head";
 import { TextProvider, useText } from "../context";
 import textReducer from "../reducers/TextValues";
 import { txtInterface } from "../interfaces/dataInterface";
 import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
-import ToggleButtons from "../components/ToggleButtons";
 import ShowText from "../components/ShowText";
 import InputForm from "../components/InputForm";
 
 const Index = () => {
+  const [isAllowable, setisAllowable] = useState(false);
   return (
     <div>
       <Head>
@@ -34,9 +34,13 @@ const Index = () => {
             text, and hitting enter.
           </p>
           <TextProvider>
-            <ToggleButtons />
             <ShowText />
-            <InputForm />
+            <InputForm
+              allowable={{
+                isAllowable: isAllowable,
+                setisAllowable: setisAllowable,
+              }}
+            />
           </TextProvider>
         </div>
       </main>

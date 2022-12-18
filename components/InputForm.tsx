@@ -1,15 +1,16 @@
 import React, { FormEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useText } from "../context";
+import { allowableInterface } from "../interfaces/dataInterface";
 
-const InputForm = () => {
+const InputForm = (props: { allowable: allowableInterface }) => {
+  const { isAllowable, setisAllowable } = props.allowable;
   const [currentInput, setCurrentInput] = useState("");
   const { dispatchData } = useText();
 
   const handleInputSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log("got here");
-    currentInput.length > 3 &&
+    currentInput.length > 1 &&
       dispatchData({
         type: "ADD_TEXT",
         payload: {
@@ -22,7 +23,19 @@ const InputForm = () => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentInput(event.target.value);
+    const { value } = event.target;
+    if (value?.length) {
+      if (
+        value[value.length - 1] === "/" ||
+        (value[value.length - 2] === "/" && Number(value[value.length - 1]) < 6)
+      ) {
+        setisAllowable(true);
+        setCurrentInput(event.target.value);
+      } else {
+        isAllowable && setisAllowable(false);
+        setCurrentInput(event.target.value);
+      }
+    }
   };
 
   return (
