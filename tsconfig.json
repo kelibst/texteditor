@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "context/index.js", "pages/index.js", "reducers/TextValues.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "context/index.tsxx", "pages/index.js", "reducers/TextValues.js"],
   "exclude": ["node_modules"]
 }

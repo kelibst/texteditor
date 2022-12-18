@@ -1,7 +1,12 @@
 interface txtInterface {
   id: string;
   value: string;
-  isHeader: boolean;
+  html?: string;
+}
+
+interface actionInterface {
+  type: string;
+  payload: txtInterface;
 }
 
 interface propsInterface {
@@ -11,4 +16,4 @@ interface propsInterface {
   handleUpdae: (value: txtInterface) => void;
   isH1: boolean;
 }
-export type { txtInterface, propsInterface };
+export type { txtInterface, propsInterface, actionInterface };

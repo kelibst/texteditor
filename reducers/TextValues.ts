@@ -1,11 +1,6 @@
-import { txtInterface } from "../interfaces/dataInterface";
+import { actionInterface, txtInterface } from "../interfaces/dataInterface";
 
-interface action {
-  type: string;
-  payload: txtInterface;
-}
-
-const textReducer = (state: txtInterface[], action: action) => {
+const textReducer = (state: txtInterface[], action: actionInterface) => {
   switch (action.type) {
     case "ADD_TEXT":
       return [...state, action.payload];

@@ -1,16 +1,15 @@
 import React, { useReducer } from "react";
 import Head from "next/head";
-import { TextProvider } from "../context";
+import { TextProvider, useText } from "../context";
 import textReducer from "../reducers/TextValues";
 import { txtInterface } from "../interfaces/dataInterface";
 import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
 import ToggleButtons from "../components/ToggleButtons";
+import ShowText from "../components/ShowText";
+import InputForm from "../components/InputForm";
 
-const index = () => {
-  const initaltext: txtInterface[] = [];
-  const [testData, dispatchData] = useReducer(textReducer, initaltext);
-
+const Index = () => {
   return (
     <div>
       <Head>
@@ -34,8 +33,10 @@ const index = () => {
             has the ability to create H1 text simply by typing / then, typing
             text, and hitting enter.
           </p>
-          <TextProvider value={testData}>
+          <TextProvider>
             <ToggleButtons />
+            <ShowText />
+            <InputForm />
           </TextProvider>
         </div>
       </main>
@@ -43,4 +44,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
