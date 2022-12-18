@@ -7,8 +7,16 @@ interface txtInterface {
 }
 
 interface allowableInterface {
-  isAllowable: boolean;
-  setisAllowable: React.Dispatch<React.SetStateAction<boolean>>;
+  showPopUp: {
+    isPopUp: boolean;
+    type: number;
+  };
+  setshowPopUp: React.Dispatch<
+    React.SetStateAction<{
+      isPopUp: boolean;
+      type: number;
+    }>
+  >;
 }
 
 interface actionInterface {

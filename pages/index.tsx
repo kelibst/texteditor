@@ -9,7 +9,8 @@ import ShowText from "../components/ShowText";
 import InputForm from "../components/InputForm";
 
 const Index = () => {
-  const [isAllowable, setisAllowable] = useState(false);
+  const [showPopUp, setshowPopUp] = useState(false);
+  console.log(showPopUp);
   return (
     <div>
       <Head>
@@ -37,8 +38,8 @@ const Index = () => {
             <ShowText />
             <InputForm
               allowable={{
-                isAllowable: isAllowable,
-                setisAllowable: setisAllowable,
+                showPopUp: showPopUp,
+                setshowPopUp: setshowPopUp,
               }}
             />
           </TextProvider>
