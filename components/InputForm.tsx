@@ -1,7 +1,8 @@
-import React, { FormEvent, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { FormEvent, useState } from "react";
+
 import { useText } from "../context";
 import { allowableInterface, allowedHtml } from "../interfaces/dataInterface";
+import { handleChange, submitInput } from "../utilis/handleInputSubmit";
 import PopUpCard from "./PopUpCard";
 
 const InputForm = (props: { allowable: allowableInterface }) => {
@@ -16,58 +17,15 @@ const InputForm = (props: { allowable: allowableInterface }) => {
   // handleInputSubmit function is used to handle the form submission event
   const handleInputSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (currentInput.length) {
-      console.log(showPopUp, "shopoup");
-      // deal with instances where the person does not enter anything before /1
-      if (showPopUp.type) {
-        dispatchData({
-          type: "ADD_TEXT",
-          payload: {
-            id: uuidv4(),
-            value: currentInput,
-
-            html: `h${currentInput[-1]}}` as allowedHtml,
-          },
-        });
-      } else {
-        dispatchData({
-          type: "ADD_TEXT",
-          payload: {
-            id: uuidv4(),
-            value: currentInput,
-          },
-        });
-      }
-      setCurrentInput("");
-    }
-
+    submitInput({ currentInput, showPopUp, dispatchData, setshowPopUp });
+    setCurrentInput("");
     return;
   };
 
-  const updatePopUpState = () => {
-    if (
-      currentInput[currentInput.length - 1] === "/" ||
-      (currentInput[currentInput.length - 2] === "/" &&
-        Number(currentInput[currentInput.length - 1]) < 6)
-    ) {
-      setshowPopUp({
-        isPopUp: true,
-        type: Number(currentInput[currentInput.length - 1])
-          ? Number(currentInput[currentInput.length - 1])
-          : 0,
-      });
-    } else {
-      showPopUp && setshowPopUp({ isPopUp: false, type: 0 });
-    }
-  };
-
-  useEffect(() => {
-    updatePopUpState();
-  }, [currentInput]);
-
   // handleInputChange function is used to handle the input field value change event
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentInput(event.target.value);
+    const { value } = event.target;
+    handleChange({ value, setshowPopUp, setCurrentInput, showPopUp });
   };
 
   return (
