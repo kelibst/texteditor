@@ -7,10 +7,11 @@ import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
 import ShowText from "../components/ShowText";
 import InputForm from "../components/InputForm";
+import { useBoolean } from "../hooks/useBoolean";
 
 const Index = () => {
-  const [showPopUp, setshowPopUp] = useState({ isPopUp: false, type: 0 });
-  console.log(showPopUp);
+  const [showPopUp, setshowPopUp] = useState(false);
+  const [headerType, setheaderType] = useState("div");
   return (
     <div>
       <Head>
@@ -40,6 +41,8 @@ const Index = () => {
               allowable={{
                 showPopUp: showPopUp,
                 setshowPopUp: setshowPopUp,
+                headerType: headerType,
+                setheaderType: setheaderType,
               }}
             />
           </TextProvider>

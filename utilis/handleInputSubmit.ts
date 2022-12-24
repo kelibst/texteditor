@@ -6,50 +6,46 @@ import {
 } from "../interfaces/dataInterface";
 
 const submitInput = (props: submitPropsInterfacce) => {
-  const { currentInput, showPopUp, dispatchData, setshowPopUp } = props;
+  const {
+    currentInput,
+    showPopUp,
+    dispatchData,
+    setshowPopUp,
+    headerType,
+    setheaderType,
+  } = props;
+  // if the person has entered a test before the html header identifier
   if (currentInput.length) {
-    if (showPopUp.isPopUp) {
-      if (showPopUp.type) {
-        dispatchData({
-          type: "ADD_TEXT",
-          payload: {
-            id: uuidv4(),
-            value: currentInput.substring(0, currentInput.length - 2),
-            html: `h${showPopUp.type}` as allowedHtml,
-          },
-        });
-        setshowPopUp({
-          isPopUp: false,
-          type: Number(currentInput[currentInput.length - 1]),
-        });
-      }
-    } else {
-      dispatchData({
-        type: "ADD_TEXT",
-        payload: {
-          id: uuidv4(),
-          value: currentInput,
-        },
-      });
+    let currentText =
+      currentInput.length > 2 && showPopUp
+        ? currentInput.substring(0, currentInput.length - 2)
+        : currentInput;
+    dispatchData({
+      type: "ADD_TEXT",
+      payload: {
+        id: uuidv4(),
+        value: currentText,
+        html: `${headerType}` as allowedHtml,
+      },
+    });
+    if (showPopUp) {
+      setshowPopUp(false);
     }
   }
 };
 
 const handleChange = (props: handleChangePropsInterface) => {
-  const { value, setshowPopUp, setCurrentInput, showPopUp } = props;
+  const { value, setshowPopUp, setCurrentInput, showPopUp, setheaderType } =
+    props;
   if (
     value[value.length - 1] === "/" ||
     (value[value.length - 2] === "/" && Number(value[value.length - 1]) < 7)
   ) {
-    setshowPopUp({
-      isPopUp: true,
-      type: Number(value[value.length - 1])
-        ? Number(value[value.length - 1])
-        : 0,
-    });
+    setshowPopUp(true);
+    setheaderType(`h${Number(value[value.length - 1])}`);
     setCurrentInput(value);
   } else {
-    showPopUp.isPopUp && setshowPopUp({ isPopUp: false, type: 0 });
+    showPopUp && setshowPopUp(false);
   }
   setCurrentInput(value);
 };

@@ -7,15 +7,40 @@ import InputText from "./InputText";
 const ShowText = () => {
   const { textData } = useText();
   console.log(textData);
+  const htmlClasses = {
+    div: "text-normal",
+    h1: "text-2xl font-bold",
+    h2: "text-xl font-bold",
+    h3: "text-2xl font-bold",
+    h4: "text-2xl font-bold",
+    h5: "text-2xl font-bold",
+    h6: "text-xl font-bold",
+  };
 
   return (
-    <div>
+    <div
+      onClick={(e) => {
+        // setEditable((e.target as HTMLElement).innerText);
+      }}
+      onInput={(e) => {
+        if (e.currentTarget.textContent) {
+          // setEditable(e.currentTarget.textContent);
+        } else {
+          // setEditable("");
+        }
+      }}
+      onBlur={() => {
+        // handleUpdae(value);
+      }}
+      contentEditable="true"
+      suppressContentEditableWarning={true}
+    >
       {textData.length
         ? textData.map((data: txtInterface) => (
             <InputText
               key={data.id}
               value={data}
-              textClasses={"text-2xl font-bold"}
+              textClasses={htmlClasses[data.html]}
               handleUpdae={() => {}}
               setEditable={() => {}}
               isH1={false}
