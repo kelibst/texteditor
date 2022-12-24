@@ -8,19 +8,21 @@ import {
 const submitInput = (props: submitPropsInterfacce) => {
   const { currentInput, showPopUp, dispatchData, setshowPopUp } = props;
   if (currentInput.length) {
-    if (showPopUp.type) {
-      dispatchData({
-        type: "ADD_TEXT",
-        payload: {
-          id: uuidv4(),
-          value: currentInput.substring(0, currentInput.length - 2),
-          html: `h${currentInput[-1]}}` as allowedHtml,
-        },
-      });
-      setshowPopUp({
-        isPopUp: false,
-        type: Number(currentInput[-1]),
-      });
+    if (showPopUp.isPopUp) {
+      if (showPopUp.type) {
+        dispatchData({
+          type: "ADD_TEXT",
+          payload: {
+            id: uuidv4(),
+            value: currentInput.substring(0, currentInput.length - 2),
+            html: `h${showPopUp.type}` as allowedHtml,
+          },
+        });
+        setshowPopUp({
+          isPopUp: false,
+          type: Number(currentInput[currentInput.length - 1]),
+        });
+      }
     } else {
       dispatchData({
         type: "ADD_TEXT",

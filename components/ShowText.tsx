@@ -6,6 +6,8 @@ import InputText from "./InputText";
 
 const ShowText = () => {
   const { textData } = useText();
+  console.log(textData);
+
   return (
     <div>
       {textData.length

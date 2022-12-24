@@ -9,7 +9,7 @@ import ShowText from "../components/ShowText";
 import InputForm from "../components/InputForm";
 
 const Index = () => {
-  const [showPopUp, setshowPopUp] = useState(false);
+  const [showPopUp, setshowPopUp] = useState({ isPopUp: false, type: 0 });
   console.log(showPopUp);
   return (
     <div>
