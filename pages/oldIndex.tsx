@@ -185,5 +185,27 @@ export default oldIndex;
 //     </div>
 //   );
 // };
+  // let headerInd = Number(currentInput[currentInput.length - 1]);
+  //   let currentText =
+  //     currentInput.length > 2 && showPopUp && Number(currentInput[currentInput.length - 1]) < 7
+  //       ? currentInput.substring(0, currentInput.length - 2)
+  //       : currentInput;
 
+
+  //   if (showPopUp && Number(currentInput[currentInput.length - 1]) < 7) {
+  //     setheaderType(`h${Number(headerInd)}`);
+  //   }
+  //   dispatchData({
+  //     type: "ADD_TEXT",
+  //     payload: {
+  //       id: uuidv4(),
+  //       value: currentText,
+  //       html: `${headerType}` as allowedHtml,
+  //     },
+  //   });
+
+  //   // setheaderType("div");
+  //   if (showPopUp) {
+  //     setshowPopUp(false);
+  //   }
 // export default Home;

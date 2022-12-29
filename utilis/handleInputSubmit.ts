@@ -5,48 +5,74 @@ import {
   submitPropsInterfacce,
 } from "../interfaces/dataInterface";
 
+
+const shouldShowPopUp = (value: string) => {
+  return value[value.length - 1] === "/" ||
+    (value[value.length - 2] === "/" && Number(value[value.length - 1]) < 7)
+}
+
 const submitInput = (props: submitPropsInterfacce) => {
   const {
     currentInput,
-    showPopUp,
     dispatchData,
-    setshowPopUp,
-    headerType,
-    setheaderType,
+    popUpAndHeader,
+    dispatchPopAction
   } = props;
-  // if the person has entered a test before the html header identifier
+  // if the person has entered a test before the html header identifier. I still want to show that text without the identifier
+
   if (currentInput.length) {
-    let currentText =
-      currentInput.length > 2 && showPopUp
-        ? currentInput.substring(0, currentInput.length - 2)
-        : currentInput;
+    let currentText = currentInput.length > 2 && popUpAndHeader?.showPopUp && Number(currentInput[currentInput.length - 1]) < 7
+      ? currentInput.substring(0, currentInput.length - 2)
+      : currentInput;
+
+    // if showPopUp is true and we have a valid header tag and canuseheader is false 
+    if (popUpAndHeader.showPopUp && Number(currentInput[currentInput.length - 1]) && Number(currentInput[currentInput.length - 1]) < 7) {
+      let headerInd = Number(currentInput[currentInput.length - 1]);
+      let newPopState = {
+        showPopUp: false,
+        headerType: popUpAndHeader.canUseHeader ? `h${headerInd}` : "div",
+        canUseHeader: popUpAndHeader.canUseHeader ? false : true
+      }
+      dispatchPopAction(newPopState)
+    }
     dispatchData({
       type: "ADD_TEXT",
       payload: {
         id: uuidv4(),
         value: currentText,
-        html: `${headerType}` as allowedHtml,
+        html: `${popUpAndHeader.headerType}` as allowedHtml,
       },
     });
-    if (showPopUp) {
-      setshowPopUp(false);
-    }
   }
+
+
 };
 
 const handleChange = (props: handleChangePropsInterface) => {
-  const { value, setshowPopUp, setCurrentInput, showPopUp, setheaderType } =
+  const { value, setCurrentInput, popUpAndHeader, dispatchPopAction } =
     props;
+  //if the currentinput value satistisfy the conditions to open a popup, we should do so
   if (
-    value[value.length - 1] === "/" ||
-    (value[value.length - 2] === "/" && Number(value[value.length - 1]) < 7)
+    shouldShowPopUp(value)
   ) {
-    setshowPopUp(true);
-    setheaderType(`h${Number(value[value.length - 1])}`);
-    setCurrentInput(value);
-  } else {
-    showPopUp && setshowPopUp(false);
+    let newPopState = {
+      showPopUp: true,
+      headerType: popUpAndHeader.headerType,
+      canUseHeader: popUpAndHeader.canUseHeader
+    }
+    dispatchPopAction(newPopState)
   }
+  else {
+    if (popUpAndHeader.showPopUp && !shouldShowPopUp(value)) {
+      let newPopState = {
+        showPopUp: false,
+        headerType: popUpAndHeader.headerType,
+        canUseHeader: popUpAndHeader.canUseHeader
+      }
+      dispatchPopAction(newPopState)
+    }
+  }
+
   setCurrentInput(value);
 };
 export { submitInput, handleChange };

@@ -1,15 +1,14 @@
 import React, { useReducer, useState } from "react";
 import Head from "next/head";
 import { TextProvider, useText } from "../context";
-import textReducer from "../reducers/TextValues";
-import { txtInterface } from "../interfaces/dataInterface";
 import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
 import ShowText from "../components/ShowText";
 import InputForm from "../components/InputForm";
-import { useBoolean } from "../hooks/useBoolean";
+
 
 const Index = () => {
+  
   const [showPopUp, setshowPopUp] = useState(false);
   const [headerType, setheaderType] = useState("div");
   return (

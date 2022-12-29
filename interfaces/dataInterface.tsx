@@ -42,6 +42,22 @@ interface handleChangePropsInterface {
   headerType: string;
   setheaderType: React.Dispatch<React.SetStateAction<string>>;
 }
+
+interface popstateInterface {
+  showPopUp: boolean,
+  headerType: allowedHtml,
+  canUseHeader: boolean
+}
+
+interface popActionInterface {
+  type: "setPopUp" | "changeHeaderType" | "canUseHeader",
+ payload: {
+  showPopUp: boolean,
+  headerType: allowedHtml,
+  canUseHeader: boolean
+ }
+}
+
 export type {
   txtInterface,
   propsInterface,
@@ -50,4 +66,6 @@ export type {
   allowableInterface,
   submitPropsInterfacce,
   handleChangePropsInterface,
+  popstateInterface,
+  popActionInterface
 };
