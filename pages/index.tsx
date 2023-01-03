@@ -5,6 +5,9 @@ import Navigations from "../components/Navigations";
 import AccessBar from "../components/AccessBar";
 import ShowText from "../components/ShowText";
 import InputForm from "../components/InputForm";
+import { Provider } from "react-redux";
+import { store } from "../redux/store";
+import AppNew from "../components/AppNew";
 
 
 const Index = () => {
@@ -45,6 +48,10 @@ const Index = () => {
               }}
             />
           </TextProvider>
+
+          <Provider store={store}>
+              <AppNew />
+          </Provider>
         </div>
       </main>
     </div>
